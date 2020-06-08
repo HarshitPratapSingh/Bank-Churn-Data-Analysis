@@ -43,7 +43,7 @@ Inputs - Confusion Matrix , Target Names, Color Mapping, Title, Accuracy.
 
 Processing - A plot of confusion matrix.
 
-Output - ![alt text](https://github.com/HarshitPratapSingh/Bank-Churn-Data/blob/master/Images/exited-pie.png?raw=true) 
+Output - !(https://github.com/HarshitPratapSingh/Bank-Churn-Data/blob/master/Images/exited-pie.png) 
 
 ```python
 def plot_Confusion_matrix(cm, target_names, cmap, title, accuracy):
