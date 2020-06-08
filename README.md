@@ -43,7 +43,7 @@ Inputs - Confusion Matrix , Target Names, Color Mapping, Title, Accuracy.
 
 Processing - A plot of confusion matrix.
 
-Output - ![alt text](https://github.com/[username]/[reponame]/blob/master/image.jpg?raw=true) 
+Output - ![alt text](https://github.com/HarshitPratapSingh/Bank-Churn-Data/blob/master/Images/Exited-pie.png?raw=true) 
 
 ```python
 def plot_Confusion_matrix(cm, target_names, cmap, title, accuracy):
@@ -121,6 +121,7 @@ sns.countplot(x='HasCrCard', hue='Exited', data=churn, ax= axarr[1,1])
 ### Percentage of staying and retaining customers through pie chart.
 
 
+churn = churn.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1)
 
 #### Observations
 1. 20.4% persons have retained their bank account.
