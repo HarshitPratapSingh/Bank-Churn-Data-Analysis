@@ -39,8 +39,12 @@ def Show_Model_Score():
 ## Function for plotting the confusion matrix
 Here we will define a function for plotting the confusio matrix
 Inputs - Confusion Matrix , Target Names, Color Mapping, Title, Accuracy.
+
 Processing - A plot of confusion matrix.
-Output - 
+
+Output - ![alt text](https://github.com/[username]/[reponame]/blob/master/image.jpg?raw=true) 
+
+```python
 def plot_Confusion_matrix(cm, target_names, cmap, title, accuracy):
     
     Submit_Score(title,accuracy)
@@ -67,9 +71,11 @@ def plot_Confusion_matrix(cm, target_names, cmap, title, accuracy):
     plt.ylabel('True label')
     plt.xlabel('Predicted label\naccuracy={:0.4f}'.format(accuracy))
     plt.show()
+```
+```python
+#Loading the Churn Data.
 
-#Loading the Curn Data.
-churn = pd.read_csv(r"C:\Users\Harshit\AnacondaProjects\ne\DATA SET\churn.csv")
+churn = pd.read_csv(r"..\dataset\churn.csv")
 
 #Getting Data information.
 churn.info()
@@ -77,12 +83,19 @@ churn.info()
 #Getting some overview of different operations for individual columns
 churn.describe()
 
-# Removing Un-neccessary columns
-churn = churn.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1)
-churn.head()
 
+#Getting some insight of our data.
 churn.head()
+```
 
+## Plotting BarChart between:-
+
+1. Geography, Exited.
+2. Gender, Exited.
+3. IsActiveMember, Exited.
+4. HasCrCard, Exited.
+
+```python
 fig, axarr = plt.subplots(2,2, figsize= (20,30))
 sns.countplot(x='Geography', hue='Exited', data=churn, ax= axarr[0,0])
 
@@ -92,6 +105,7 @@ sns.countplot(x='IsActiveMember', hue='Exited', data=churn, ax= axarr[1,0])
 
 sns.countplot(x='HasCrCard', hue='Exited', data=churn, ax= axarr[1,1])
 
+```
 ### Observations from above graphs:-
 1. Most of the customers were from France who stayed.
 2. We lose customers from Germany Usually.
