@@ -3,12 +3,13 @@
 This dataset is a bank data at a point,
 which has 14 columns and 10000 entries.
 
-#Importing Important Libraries for visualization.
+## Importing Important Libraries for visualization.
+'''python
 import matplotlib.pyplot as plt
 import seaborn as sns
 %matplotlib inline
-
-#Important Libraries for Mathematical Operations.
+'''
+## Important Libraries for Mathematical Operations.
 import pandas as pd
 import numpy as np
 
