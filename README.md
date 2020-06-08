@@ -158,6 +158,7 @@ plt.title("Credit card holder proportion")
 ```
 ![Pie Chart Example](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/CrCard-pie.png)
 
+____
 
 ### Countrywise Proportion-
 
@@ -173,6 +174,7 @@ plt.show()
 ```
 ![Pie Chart Example](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/country-pie.png)
 
+___
 
 ### Relation Visualzation
 
@@ -192,44 +194,48 @@ Geography and Exited Sankey Chart
 
 ![Sankey Chart Geography, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/geo-sankey.png)
 
+___
 
 Has Credit Card and Exited Sankey Chart
 
 ![Sankey Chart Credit Card, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/crcard-sankey.png)
 
+___
 
 Number Of Products and Exited Sankey Chart
 
 ![Sankey Chart Number of products, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/numpro-sankey.png)
 
+___
 
 Age and Exited Histogram
 
 ![Hist Chart Age, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/age-hist.png)
 
+___
 
 Credit Score and Exited Histogram
 
 ![Hist Chart Credit Score, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/crsc-hist.png)
 
-
+___
 Tenure and Exited Histogram
 
 ![Hist Chart Tenure, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/ten-hist.png)
 
-
+___
 Balance and Exited Histogram
 
 ![Hist Chart Balance, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/bal-hist.png)
 
-
+___
 Estimated Salary and Exited Histogram
 
 ![Hist Chart Estimated Salary, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/est-hist.png)
 
+***
 
-
-## Final observations 
+**## Final observations 
 1. Persons who have 0 balance have less chances to leave.
 2. Persons with more credit score have more chances to stay.
 3. Females have more chances to leave than males.
@@ -242,8 +248,9 @@ Estimated Salary and Exited Histogram
 10. On age, customer below 40 and above 65 years old have a tendency to keep their account.
 11. Non active members tend to discontinue their services with a bank compared with the active clients. 
 12. The dataset has 96% of clients  with 1 or 2 product, and customers with 1 product only have a higher rate to close the account than those with 2 products (around 3x higher).
-13. Estimated Salary does not seem to affect the churn rate.
+13. Estimated Salary does not seem to affect the churn rate.**
 
+***
 
 # Data Cleaning
 
@@ -258,6 +265,8 @@ churn = churn.drop('Exited_str',axis=1)
 churn
 ```
 
+***
+
 ### One-hot encoding our categorical data.
 We will hot encode our data so that machine learning algorithm can easily extract information from them. Its a simple process to preprocess our categorical data for ML algorithm training and make it more effective. 
 
@@ -269,6 +278,7 @@ churn.head()
 churn.info()
 ```
 
+***
 
 ### Splitting our data in to train and test dataset
 
@@ -292,6 +302,7 @@ features = list(train.drop('Exited', axis = 1))
 target = 'Exited'
 ```
 
+***
 
 ### Getting the percentage of Exited data in both train test dataset
 
@@ -306,6 +317,8 @@ print('Complete Train set - Number of clients that have exited the program: {} (
 print('Test set - Number of clients that haven\'t exited the program: {} ({}%)'.format(exited_test, exited_test_perc))
 ```
 
+***
+
 ### Scaling our test and train data
 We will scale our data and it contains many variations in values and this will severely affect our model.
 fro achieveing the same we will use *StandardScaler function from sklearn.preprocessing module*.
@@ -317,7 +330,8 @@ sc = StandardScaler()
 train[features]= sc.fit_transform(train[features])
 test[features] = sc.transform(test[features])
 ```
----
+
+***
 
 # Testing Different Models
 
@@ -326,6 +340,8 @@ test[features] = sc.transform(test[features])
 ```python
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 ```
+
+***
 
 ### Decision Tree
 
@@ -351,6 +367,8 @@ cm = confusion_matrix(test[target], DT_pred)
 plot_Confusion_matrix(cm,['Exited','Not Exited'],'Blues',"Decision Tree", DT_Acc_Per)
 ```
 
+***
+
 ### Multinomial Naive Bayes
 Naive Bayes classifier for multinomial models
 
@@ -375,6 +393,8 @@ print(NB_Cla_Rep)
 "Accuracy is",NB_Acc_Scr
 ```
 
+***
+
 ### KNN
 The -neighbors classification in KNeighborsClassifier is the most commonly used technique. The optimal choice of the value  is highly 
 data-dependent: in general a larger  suppresses the effects of noise, but makes the classification boundaries less distinct.
@@ -395,6 +415,8 @@ plot_Confusion_matrix(cm,['Exited','Not Exited'],'Blues',"K- nearest neighbor", 
 print(KNN_Cla_Rep)
 "Accuraccy of KNN is",KNN_acc
 ```
+
+***
 
 ### SVM - Supoort Vector Machines
 
@@ -422,6 +444,7 @@ plot_Confusion_matrix(cm,['Exited','Not Exited'],'Blues',"Support Vector Machine
 SVM_Cla_Rep = classification_report(NB_test[target], SVM_pred)
 print(SVM_Cla_Rep)
 ```
+***
 
 ### Logistic Regression
 
@@ -455,6 +478,8 @@ print(LR_Cla_Rep)
 plot_Confusion_matrix(cm,['Exited','Not Exited'],'Blues',"Logistic Regression", LR_acc)
 ```
 
+***
+
 ### SGD - Stochastic Gradient Descent
 
 Stochastic Gradient Descent (SGD) is a simple yet very efficient approach to fitting linear classifiers and regressors under convex loss 
@@ -475,6 +500,8 @@ SGD_Cla_Rep = classification_report(test[target], SGD_pred)
 print(SGD_Cla_Rep)
 plot_Confusion_matrix(cm,['Exited','Not Exited'],'Blues',"Stochastic Gradient Descent", SGD_acc)
 ```
+***
+
 #### For final scores we will call this function and it will display the following table-
 ```python
 Show_Model_Score()
@@ -484,6 +511,7 @@ Show_Model_Score()
 
 Final Scores of all the Models.
 
+***
 
 >## Observations for Model Selection
 
@@ -500,4 +528,4 @@ Final Scores of all the Models.
 
 >6. SGD (Stochastic Gradient Descent) - This was the most interesting and flexible algoritm it also performed well and it achieved 3rd 
 >most accurate model consideration place with some Hyperparameters tuning.
-
+---
