@@ -7,7 +7,7 @@ which has 14 columns and 10000 entries.
 
 ___
 
-## Importing Important Libraries for visualization.
+## Importing important libraries for Visualization.
 ``` python
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -42,7 +42,7 @@ def Show_Model_Score():
 ```
 ___
 ## Function for plotting the confusion matrix
-Here we will define a function for plotting the confusio matrix-
+Here we will define a function for plotting the confusion matrix-
 
 Inputs - Confusion Matrix , Target Names, Color Mapping, Title, Accuracy.
 
@@ -99,7 +99,7 @@ churn.describe()
 churn.head()
 ```
 ___
-## Plotting BarChart between:-
+## Plotting Bar Chart between:-
 
 1. Geography, Exited.
 2. Gender, Exited.
@@ -119,7 +119,7 @@ sns.countplot(x='HasCrCard', hue='Exited', data=churn, ax= axarr[1,1])
 ```
 ***
 
-### Observations from above graphs:-
+### Observations from above :-
 1. Most of the customers were from France who stayed.
 2. We lose customers from Germany Usually.
 3. Customers who stayed are mostly male.
@@ -129,13 +129,13 @@ credit card.
 
 ***
 
-### Percentage of staying and retaining customers through pie chart.
+### Percentage of staying and exiting customers through pie chart.
 
 ![Pie Chart Example](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/exited-pie.png)
 
 ___
 #### Observations
-1. 20.4% persons have retained their bank account.
+1. 20.4% persons have closed their bank account.
 2. 79.6% have stayed.
 ___
 ### Percentage of Male and Female customers through pie chart.
@@ -186,9 +186,10 @@ plt.show()
 
 ___
 
-### Relation Visualzation
+### Relation Visualization
 
 #### Sankey Charts
+
 Color Scheme for Sankey Chart
 
 ```python
@@ -218,6 +219,8 @@ Number Of Products and Exited Sankey Chart
 
 ___
 
+#### Histograms
+
 Age and Exited Histogram
 
 ![Hist Chart Age, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/age-hist.png)
@@ -245,7 +248,7 @@ Estimated Salary and Exited Histogram
 
 ***
 
-**## Final observations 
+## Final observations 
 1. Persons who have 0 balance have less chances to leave.
 2. Persons with more credit score have more chances to stay.
 3. Females have more chances to leave than males.
@@ -258,15 +261,15 @@ Estimated Salary and Exited Histogram
 10. On age, customer below 40 and above 65 years old have a tendency to keep their account.
 11. Non active members tend to discontinue their services with a bank compared with the active clients. 
 12. The dataset has 96% of clients  with 1 or 2 product, and customers with 1 product only have a higher rate to close the account than those with 2 products (around 3x higher).
-13. Estimated Salary does not seem to affect the churn rate.**
+13. Estimated Salary does not seem to affect the churn rate.
 
 ***
 
 # Data Cleaning
 
 
-### Removing Un-necessary columns
-We will remove Unnecessary columns like RowNumber, CustomerID,SurName ..etc. as they will not help us to train our model infact they can degrade the accuracy of our model.
+### Removing Un-neccessary columns
+We will remove Un-neccessary columns like RowNumber, CustomerID,SurName ..etc. as they will not help us to train our model infact they can degrade the accuracy of our model.
 
 ```python
 churn.head()
@@ -292,7 +295,7 @@ churn.info()
 
 ### Splitting our data in to train and test dataset
 
-We wll divide our dataset into a proportion of 80% and 20% for training and testing perpose respectively.
+We wll divide our dataset into a proportion of 80% and 20% for training and testing purpose respectively.
 
 we will use sklearn.model_selection import train_test_split function.
 test_size - denotes the size of our test dataset size.
@@ -314,7 +317,7 @@ target = 'Exited'
 
 ***
 
-### Getting the percentage of Exited data in both train test dataset
+### Getting the percentage of Exited data in both train and test dataset
 
 ```python
 exited_train = len(train[train['Exited'] == 1]['Exited'])
@@ -332,6 +335,7 @@ print('Test set - Number of clients that haven\'t exited the program: {} ({}%)'.
 ### Scaling our test and train data
 We will scale our data and it contains many variations in values and this will severely affect our model.
 fro achieveing the same we will use *StandardScaler function from sklearn.preprocessing module*.
+
 ```python
 from sklearn.preprocessing import StandardScaler
 
@@ -343,7 +347,7 @@ test[features] = sc.transform(test[features])
 
 ***
 
-# Testing Different Models
+## Testing Different Models
 
 ####  Metrics functions import to test different predications from different algorithms
 
@@ -408,6 +412,7 @@ print(NB_Cla_Rep)
 ### KNN
 The -neighbors classification in KNeighborsClassifier is the most commonly used technique. The optimal choice of the value  is highly 
 data-dependent: in general a larger  suppresses the effects of noise, but makes the classification boundaries less distinct.
+
 ```python
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -435,6 +440,7 @@ C-Support Vector Classification.
 
 The implementation is based on libsvm. The fit time scales at least quadratically with the number of samples and may be impractical
 beyond tens of thousands of samples. For large datasets consider using sklearn.svm.LinearSVC or sklearn.linear_model.SGDClassifier
+
 ```python
 from sklearn import svm
 
