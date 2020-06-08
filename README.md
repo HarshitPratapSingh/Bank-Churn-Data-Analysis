@@ -229,7 +229,7 @@ Estimated Salary and Exited Histogram
 
 
 
-### Final observations 
+## Final observations 
 1. Persons who have 0 balance have less chances to leave.
 2. Persons with more credit score have more chances to stay.
 3. Females have more chances to leave than males.
@@ -249,33 +249,53 @@ Estimated Salary and Exited Histogram
 
 
 ### Removing Un-necessary columns
+We will remove Unnecessary columns like RowNumber, CustomerID,SurName ..etc. as they will not help us to train our model infact they can degrade the accuracy of our model.
 
+```python
 churn.head()
-
+churn = churn.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1)
 churn = churn.drop('Exited_str',axis=1)
 churn
+```
 
-#### One-hot encoding our categorical data.
+### One-hot encoding our categorical data.
+We will hot encode our data so that machine learning algorithm can easily extract information from them. Its a simple process to preprocess our categorical data for ML algorithm training and make it more effective. 
 
-
+```python
 list_cat = ['Geography', 'Gender']
 churn = pd.get_dummies(churn, columns = list_cat, prefix = list_cat)
 churn.head()
 
 churn.info()
+```
+
 
 ### Splitting our data in to train and test dataset
 
+We wll divide our dataset into a proportion of 80% and 20% for training and testing perpose respectively.
+
+we will use sklearn.model_selection import train_test_split function.
+test_size - denotes the size of our test dataset size.
+
+```python
 from sklearn.model_selection import train_test_split , GridSearchCV
 
 train, test = train_test_split(churn, test_size = 0.2, random_state= 1)
 train.head(), test.head()
 
+#One can skip this line of code if you are not using Naive Bayes.
+NB_train, NB_test = train_test_split(churn, test_size=0.2, random_state=1)
+
+# Selecting the features except Exited column.
 features = list(train.drop('Exited', axis = 1))
+#defining target as Exited column.
 target = 'Exited'
+```
+
 
 ### Getting the percentage of Exited data in both train test dataset
 
+```python
 exited_train = len(train[train['Exited'] == 1]['Exited'])
 exited_train_perc = round(exited_train/len(train)*100,1)
 
@@ -284,26 +304,34 @@ exited_test_perc = round(exited_test/len(test)*100,1)
 
 print('Complete Train set - Number of clients that have exited the program: {} ({}%)'.format(exited_train, exited_train_perc))
 print('Test set - Number of clients that haven\'t exited the program: {} ({}%)'.format(exited_test, exited_test_perc))
+```
 
-#### Scaling our test and train data
-
-NB_train, NB_test = train_test_split(churn, test_size=0.2, random_state=1)
-
+### Scaling our test and train data
+We will scale our data and it contains many variations in values and this will severely affect our model.
+fro achieveing the same we will use *StandardScaler function from sklearn.preprocessing module*.
+```python
 from sklearn.preprocessing import StandardScaler
 
 sc = StandardScaler()
 
 train[features]= sc.fit_transform(train[features])
 test[features] = sc.transform(test[features])
+```
+---
 
 # Testing Different Models
 
 ####  Metrics functions import to test different predications from different algorithms
 
+```python
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+```
 
 ### Decision Tree
 
+Decision Trees (DTs) are a non-parametric supervised learning method used for classification and regression. The goal is to create a model that predicts the value of a target variable by learning simple decision rules inferred from the data features.
+
+```python
 from sklearn.tree import DecisionTreeClassifier
 
 DT_Classify = DecisionTreeClassifier()
@@ -321,11 +349,16 @@ print("Accuracy is",DT_Acc_Per)
 print(DT_Cla_Rep)
 cm = confusion_matrix(test[target], DT_pred)
 plot_Confusion_matrix(cm,['Exited','Not Exited'],'Blues',"Decision Tree", DT_Acc_Per)
+```
 
 ### Multinomial Naive Bayes
+Naive Bayes classifier for multinomial models
 
-The multinomial Naive Bayes classifier is suitable for classification with discrete features
+The multinomial Naive Bayes classifier is suitable for classification with discrete features (e.g., word counts for text classification). The multinomial distribution normally requires integer feature counts.
 
+The multinomial Naive Bayes classifier is suitable for classification with discrete features.
+
+```python
 from sklearn.naive_bayes import MultinomialNB
 
 
@@ -340,9 +373,12 @@ cm = confusion_matrix(NB_test[target], NB_pred)
 plot_Confusion_matrix(cm,['Exited','Not Exited'],'Blues',"Multinomial Naive Bayes", NB_Acc_Scr)
 print(NB_Cla_Rep)
 "Accuracy is",NB_Acc_Scr
+```
 
 ### KNN
-
+The -neighbors classification in KNeighborsClassifier is the most commonly used technique. The optimal choice of the value  is highly 
+data-dependent: in general a larger  suppresses the effects of noise, but makes the classification boundaries less distinct.
+```python
 from sklearn.neighbors import KNeighborsClassifier
 
 KNN_Classifier = KNeighborsClassifier()
@@ -358,11 +394,16 @@ plot_Confusion_matrix(cm,['Exited','Not Exited'],'Blues',"K- nearest neighbor", 
 
 print(KNN_Cla_Rep)
 "Accuraccy of KNN is",KNN_acc
+```
 
 ### SVM - Supoort Vector Machines
 
 Support vector machines (SVMs) are a set of supervised learning methods used for classification, regression and outliers detection.
+C-Support Vector Classification.
 
+The implementation is based on libsvm. The fit time scales at least quadratically with the number of samples and may be impractical
+beyond tens of thousands of samples. For large datasets consider using sklearn.svm.LinearSVC or sklearn.linear_model.SGDClassifier
+```python
 from sklearn import svm
 
 SVM_Classifier = svm.SVC(decision_function_shape='ovo')
@@ -380,11 +421,16 @@ plot_Confusion_matrix(cm,['Exited','Not Exited'],'Blues',"Support Vector Machine
 
 SVM_Cla_Rep = classification_report(NB_test[target], SVM_pred)
 print(SVM_Cla_Rep)
+```
 
 ### Logistic Regression
 
 Logistic Regression (aka logit, MaxEnt) classifier.
+In the multiclass case, the training algorithm uses the one-vs-rest (OvR) scheme if the ‘multi_class’ option is set to ‘ovr’, and uses 
+the cross-entropy loss if the ‘multi_class’ option is set to ‘multinomial’. (Currently the ‘multinomial’ option is supported only by the 
+‘lbfgs’, ‘sag’, ‘saga’ and ‘newton-cg’ solvers.)
 
+```python
 from sklearn.linear_model import LogisticRegression
 
 parameters = {'C': [0.01, 0.1, 1, 10],
@@ -407,12 +453,15 @@ cm = confusion_matrix(test[target], LR_pred)
 LR_Cla_Rep = classification_report(test[target], LR_pred)
 print(LR_Cla_Rep)
 plot_Confusion_matrix(cm,['Exited','Not Exited'],'Blues',"Logistic Regression", LR_acc)
-
+```
 
 ### SGD - Stochastic Gradient Descent
 
-Stochastic Gradient Descent (SGD) is a simple yet very efficient approach to fitting linear classifiers and regressors under convex loss functions such as (linear) Support Vector Machines and Logistic Regression. Even though SGD has been around in the machine learning community for a long time, it has received a considerable amount of attention just recently in the context of large-scale learning.
+Stochastic Gradient Descent (SGD) is a simple yet very efficient approach to fitting linear classifiers and regressors under convex loss 
+functions such as (linear) Support Vector Machines and Logistic Regression. Even though SGD has been around in the machine learning 
+community for a long time, it has received a considerable amount of attention just recently in the context of large-scale learning.
 
+```
 from sklearn.linear_model import SGDClassifier
 
 SGD_clf = SGDClassifier(loss='log', penalty="l1", max_iter=20, learning_rate="adaptive", eta0=0.01)
@@ -425,23 +474,30 @@ cm = confusion_matrix(test[target], SGD_pred)
 SGD_Cla_Rep = classification_report(test[target], SGD_pred)
 print(SGD_Cla_Rep)
 plot_Confusion_matrix(cm,['Exited','Not Exited'],'Blues',"Stochastic Gradient Descent", SGD_acc)
-
-
-
+```
+#### For final scores we will call this function and it will display the following table-
+```python
 Show_Model_Score()
+```
 
+![Final Score Table](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/final-tb.png)
 
+Final Scores of all the Models.
+
+`
 ## Observations for Model Selection
 
 1. Decision Tree - It performed well but the confusion graph shows that its has predicted some false Exited and False Not Exited but it can be considered due to satisfactory accuracy.
-
+`
 2. Multinomial Naive Bayes - This model doesn't even gave satisfactory results so we will not consider this.
-
+`
 3. KNN - This model has second most high accuracy and it is also very useful.
-
+`
 4. SVM - This model has the most promising performance as well as accuracy It will be very useful.
-
-5. Logistic Regression - This model has very expectations as it is very efficient to predict multi class output and it performed well but it was not able to defeat SVM and it secured 4th place in consideration for model.
-
-6. SGD (Stochastic Gradient Descent) - This was the most interesting and flexible algoritm it also performed well and it achieved 3rd most accurate model consideration place with some Hyperparameters tuning.
+`
+5. Logistic Regression - This model has very expectations as it is very efficient to predict multi class output and it performed well 
+`but it was not able to defeat SVM and it secured 4th place in consideration for model.
+`
+6. SGD (Stochastic Gradient Descent) - This was the most interesting and flexible algoritm it also performed well and it achieved 3rd 
+`most accurate model consideration place with some Hyperparameters tuning.
 
