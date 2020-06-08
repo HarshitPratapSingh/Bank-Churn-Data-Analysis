@@ -484,20 +484,20 @@ Show_Model_Score()
 
 Final Scores of all the Models.
 
-`
-## Observations for Model Selection
 
-1. Decision Tree - It performed well but the confusion graph shows that its has predicted some false Exited and False Not Exited but it can be considered due to satisfactory accuracy.
-`
-2. Multinomial Naive Bayes - This model doesn't even gave satisfactory results so we will not consider this.
-`
-3. KNN - This model has second most high accuracy and it is also very useful.
-`
-4. SVM - This model has the most promising performance as well as accuracy It will be very useful.
-`
-5. Logistic Regression - This model has very expectations as it is very efficient to predict multi class output and it performed well 
-`but it was not able to defeat SVM and it secured 4th place in consideration for model.
-`
-6. SGD (Stochastic Gradient Descent) - This was the most interesting and flexible algoritm it also performed well and it achieved 3rd 
-`most accurate model consideration place with some Hyperparameters tuning.
+>## Observations for Model Selection
+
+>1. Decision Tree - It performed well but the confusion graph shows that its has predicted some false Exited and False Not Exited but it can be considered due to satisfactory accuracy.
+
+>2. Multinomial Naive Bayes - This model doesn't even gave satisfactory results so we will not consider this.
+
+>3. KNN - This model has second most high accuracy and it is also very useful.
+
+>4. SVM - This model has the most promising performance as well as accuracy It will be very useful.
+
+>5. Logistic Regression - This model has very expectations as it is very efficient to predict multi class output and it performed well 
+>but it was not able to defeat SVM and it secured 4th place in consideration for model.
+
+>6. SGD (Stochastic Gradient Descent) - This was the most interesting and flexible algoritm it also performed well and it achieved 3rd 
+>most accurate model consideration place with some Hyperparameters tuning.
 
