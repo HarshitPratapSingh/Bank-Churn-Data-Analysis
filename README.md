@@ -37,7 +37,8 @@ def Show_Model_Score():
 ```
 
 ## Function for plotting the confusion matrix
-Here we will define a function for plotting the confusio matrix
+Here we will define a function for plotting the confusio matrix-
+
 Inputs - Confusion Matrix , Target Names, Color Mapping, Title, Accuracy.
 
 Processing - A plot of confusion matrix.
@@ -72,6 +73,8 @@ def plot_Confusion_matrix(cm, target_names, cmap, title, accuracy):
     plt.xlabel('Predicted label\naccuracy={:0.4f}'.format(accuracy))
     plt.show()
 ```
+
+
 ```python
 #Loading the Churn Data.
 
@@ -106,6 +109,7 @@ sns.countplot(x='IsActiveMember', hue='Exited', data=churn, ax= axarr[1,0])
 sns.countplot(x='HasCrCard', hue='Exited', data=churn, ax= axarr[1,1])
 
 ```
+
 ### Observations from above graphs:-
 1. Most of the customers were from France who stayed.
 2. We lose customers from Germany Usually.
@@ -113,18 +117,10 @@ sns.countplot(x='HasCrCard', hue='Exited', data=churn, ax= axarr[1,1])
 4. Customers who were not active members have more chances to leave.
 5. Usually customers who have Credit card have more chances to stay but its not necessary as over 1100 customers have left who had a credit card.
 
+
 ### Percentage of staying and retaining customers through pie chart.
 
-labels = 'Exited', 'Stayed'
-sizes = [churn.Exited[churn['Exited']== 1].count(), churn.Exited[churn['Exited']==0].count()]
 
-explode= (0,0.1)
-fig1, ax1= plt.subplots(figsize= (10,8))
-ax1.pie(sizes,explode=explode, labels=labels, autopct= '%1.1f%%', shadow= True, startangle=90)
-
-ax1.axis('equal')
-plt.title("Proportion of customer Exited and Stayed", size=20)
-plt.show()
 
 #### Observations
 1. 20.4% persons have retained their bank account.
