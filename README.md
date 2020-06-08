@@ -43,7 +43,9 @@ Inputs - Confusion Matrix , Target Names, Color Mapping, Title, Accuracy.
 
 Processing - A plot of confusion matrix.
 
-Output - !(https://github.com/HarshitPratapSingh/Bank-Churn-Data/blob/master/Images/exited-pie.png) 
+Output - Exapmle Confusion Matrix
+
+![Confusion Matrix](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/example-CM.png) 
 
 ```python
 def plot_Confusion_matrix(cm, target_names, cmap, title, accuracy):
@@ -120,8 +122,8 @@ sns.countplot(x='HasCrCard', hue='Exited', data=churn, ax= axarr[1,1])
 
 ### Percentage of staying and retaining customers through pie chart.
 
+![Pie Chart Example](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/exited-pie.png)
 
-churn = churn.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1)
 
 #### Observations
 1. 20.4% persons have retained their bank account.
@@ -129,6 +131,7 @@ churn = churn.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1)
 
 ### Percentage of Male and Female customers through pie chart.
 
+```python
 labels = 'Male', 'Female'
 sizes = [churn.Gender[churn['Gender']== 'Male'].count(), churn.Gender[churn['Gender']=='Female'].count()]
 
@@ -137,9 +140,14 @@ plt.figure(0)
 plt.pie(sizes,explode=explode, labels=labels, autopct= '%1.1f%%', shadow= True, startangle=90)
 plt.title("Male and Female Proportion")
 
+```
+
+![Pie Chart Example](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/male-female-pie.png)
+
+### Has Credit Card Proportion -
 
 
-
+```python
 labels = 'Yes', 'No'
 sizes = [churn.HasCrCard[churn['HasCrCard']== 1].count(), churn.HasCrCard[churn['HasCrCard']==0].count()]
 
@@ -147,8 +155,13 @@ plt.figure(1)
 explode=(0,0.1)
 plt.pie(sizes,explode=explode, labels=labels, autopct= '%1.1f%%', shadow= True, startangle=90)
 plt.title("Credit card holder proportion")
+```
+![Pie Chart Example](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/CrCard-pie.png)
 
 
+### Countrywise Proportion-
+
+```python
 labels = churn['Geography'].unique()
 sizes = [churn.Geography[churn['Geography']== 'France'].count(), churn.Geography[churn['Geography']== 'Spain'].count(), churn.Geography[churn['Geography']== 'Germany'].count()]
 
@@ -157,18 +170,16 @@ explode= (0,0.1,0.1)
 plt.pie(sizes,explode=explode, labels=labels, autopct= '%1.1f%%', shadow= True, startangle=90)
 plt.title("Customer living country proportion")
 plt.show()
+```
+![Pie Chart Example](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/country-pie.png)
+
 
 ### Relation Visualzation
 
-churn['Exited_str'] = churn['Exited']
-churn['Exited_str'] = churn['Exited_str'].map({1: 'Exited', 0: 'Stayed'})
-churn['Exited_str']
+#### Sankey Charts
+Color Scheme for Sankey Chart
 
-!pip install pySankey
-
-from pySankey import sankey
-
-
+```python
 colorDict = {
     'Exited':'#f71b1b',
     'Stayed':'grey',
@@ -176,87 +187,47 @@ colorDict = {
     'Spain':'#12e23f',
     'Germany':'#f78c1b'
 }
+```
+Geography and Exited Sankey Chart
 
-sankey.sankey(
-    churn['Geography'], churn['Exited_str'], aspect=20, colorDict=colorDict,
-    fontsize=12
-)
-
+![Sankey Chart Geography, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/geo-sankey.png)
 
 
-sankey.sankey(
-    churn['HasCrCard'], churn['Exited_str'], aspect=20,
-    fontsize=12
-)
-plt.title("Have credit card")
-plt.show()
+Has Credit Card and Exited Sankey Chart
+
+![Sankey Chart Credit Card, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/crcard-sankey.png)
 
 
-sankey.sankey(
-    churn['NumOfProducts'], churn['Exited_str'], aspect=20,
-    fontsize=12
-)
-plt.title("Number of products have")
-plt.show()
+Number Of Products and Exited Sankey Chart
 
-figure = plt.figure(figsize=(15,8))
-plt.hist([
-        churn[(churn.Exited==0)]['Age'],
-        churn[(churn.Exited==1)]['Age']
-        ], 
-         
-         bins = 'auto',label = ['Stayed','Exited'],
-         edgecolor='black', linewidth=1.2)
-plt.xlabel('Age (years)')
-plt.ylabel('Number of customers')
-plt.legend()
+![Sankey Chart Number of products, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/numpro-sankey.png)
 
-fig, axes = plt.subplots(nrows=4, figsize = (15,30))
-fig.subplots_adjust(left=0.2, wspace=0.6)
-ax0, ax1, ax2, ax3 = axes.flatten()
 
-ax0.hist([
-        churn[(churn.Exited==0)]['CreditScore'],
-        churn[(churn.Exited==1)]['CreditScore']
-        ], 
-         
-    bins = 'auto',label = ['Stayed','Exited'],
-         edgecolor='black', linewidth=1.2)
-ax0.legend()
-ax0.set_title('Credit Score')
+Age and Exited Histogram
 
-ax1.hist([
-        churn[(churn.Exited==0)]['Tenure'],
-        churn[(churn.Exited==1)]['Tenure']
-        ], 
-         
-         bins = 'auto',label = ['Stayed','Exited'],
-         edgecolor='black', linewidth=1.2)
-ax1.legend()
-ax1.set_title('Tenure')
+![Hist Chart Age, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/age-hist.png)
 
-ax2.hist([
-        churn[(churn.Exited==0)]['Balance'],
-        churn[(churn.Exited==1)]['Balance']
-        ], 
-        
-         bins = 'auto',label = ['Stayed','Exited'],
-         edgecolor='black', linewidth=1.2)
-ax2.legend()
-ax2.set_title('Balance')
 
-ax3.hist([
-        churn[(churn.Exited==0)]['EstimatedSalary'],
-        churn[(churn.Exited==1)]['EstimatedSalary']
-        ], 
-         
-         bins = 'auto',label = ['Stayed','Exited'],
-         edgecolor='black', linewidth=1.2)
-ax3.legend()
-ax3.set_title('Estimated Salary')
+Credit Score and Exited Histogram
 
-fig.tight_layout()
-plt.show()
+![Hist Chart Credit Score, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/crsc-hist.png)
+
+
+Tenure and Exited Histogram
+
+![Hist Chart Tenure, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/ten-hist.png)
+
+
+Balance and Exited Histogram
+
+![Hist Chart Balance, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/bal-hist.png)
+
+
+Estimated Salary and Exited Histogram
+
+![Hist Chart Estimated Salary, Exited](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/est-hist.png)
+
+
 
 ### Final observations 
 1. Persons who have 0 balance have less chances to leave.
