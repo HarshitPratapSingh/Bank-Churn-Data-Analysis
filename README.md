@@ -1,7 +1,11 @@
 # Bank Churn Project
 
-This dataset is a bank data at a point,
+Churner is generally defined as a customer who stops using a product or service for a given period of time.
+
+This notebook is to do the data analysis and predictions on the churn.csv file.
 which has 14 columns and 10000 entries.
+
+___
 
 ## Importing Important Libraries for visualization.
 ``` python
@@ -9,12 +13,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 %matplotlib inline
 ```
+___
 ## Important Libraries for Mathematical Operations.
 ```python
 import pandas as pd
 import numpy as np
 ```
-
+___
 ### Function for generating report from all the ML models
 we will use a dataframe with two columns
 1. Models  - This column contains the name of the model.
@@ -28,14 +33,14 @@ def Submit_Score(lis1,lis2):
     acc_lis.append(lis2)
     return
  ```
- 
+ ___
 ### Function for showing the final report.
 ```python
 def Show_Model_Score():
     temp_df = pd.DataFrame({'Models': models_lis, 'Accuracy': acc_lis})
     return temp_df
 ```
-
+___
 ## Function for plotting the confusion matrix
 Here we will define a function for plotting the confusio matrix-
 
@@ -76,6 +81,7 @@ def plot_Confusion_matrix(cm, target_names, cmap, title, accuracy):
     plt.show()
 ```
 
+***
 
 ```python
 #Loading the Churn Data.
@@ -92,7 +98,7 @@ churn.describe()
 #Getting some insight of our data.
 churn.head()
 ```
-
+___
 ## Plotting BarChart between:-
 
 1. Geography, Exited.
@@ -111,24 +117,27 @@ sns.countplot(x='IsActiveMember', hue='Exited', data=churn, ax= axarr[1,0])
 sns.countplot(x='HasCrCard', hue='Exited', data=churn, ax= axarr[1,1])
 
 ```
+***
 
 ### Observations from above graphs:-
 1. Most of the customers were from France who stayed.
 2. We lose customers from Germany Usually.
 3. Customers who stayed are mostly male.
 4. Customers who were not active members have more chances to leave.
-5. Usually customers who have Credit card have more chances to stay but its not necessary as over 1100 customers have left who had a credit card.
+5. Usually customers who have Credit card have more chances to stay but its not necessary as over 1100 customers have left who had a 
+credit card.
 
+***
 
 ### Percentage of staying and retaining customers through pie chart.
 
 ![Pie Chart Example](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/exited-pie.png)
 
-
+___
 #### Observations
 1. 20.4% persons have retained their bank account.
 2. 79.6% have stayed.
-
+___
 ### Percentage of Male and Female customers through pie chart.
 
 ```python
@@ -143,6 +152,7 @@ plt.title("Male and Female Proportion")
 ```
 
 ![Pie Chart Example](https://github.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/blob/master/Images/male-female-pie.png)
+___
 
 ### Has Credit Card Proportion -
 
