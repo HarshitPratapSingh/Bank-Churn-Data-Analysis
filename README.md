@@ -4,29 +4,43 @@ This dataset is a bank data at a point,
 which has 14 columns and 10000 entries.
 
 ## Importing Important Libraries for visualization.
-'''python
+``` python
 import matplotlib.pyplot as plt
 import seaborn as sns
 %matplotlib inline
-'''
+```
 ## Important Libraries for Mathematical Operations.
+```python
 import pandas as pd
 import numpy as np
+```
 
+### Function for generating report from all the ML models
+we will use a dataframe with two columns
+1. Models  - This column contains the name of the model.
+2. Accuracy - This column will contain the accuracy of the model.
+
+```python
 Accuracy_Report = pd.DataFrame(columns=["Models","Accuracy"])
 models_lis, acc_lis = [], []
 def Submit_Score(lis1,lis2):
     models_lis.append(lis1)
     acc_lis.append(lis2)
     return
-    
+ ```
+ 
+### Function for showing the final report.
+```python
 def Show_Model_Score():
     temp_df = pd.DataFrame({'Models': models_lis, 'Accuracy': acc_lis})
     return temp_df
+```
 
-
-# Function for plotting the confusion matrix
-
+## Function for plotting the confusion matrix
+Here we will define a function for plotting the confusio matrix
+Inputs - Confusion Matrix , Target Names, Color Mapping, Title, Accuracy.
+Processing - A plot of confusion matrix.
+Output - 
 def plot_Confusion_matrix(cm, target_names, cmap, title, accuracy):
     
     Submit_Score(title,accuracy)
