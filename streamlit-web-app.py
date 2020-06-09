@@ -6,7 +6,8 @@ import numpy as np
 @st.cache
 def get_data():
     url = "https://raw.githubusercontent.com/HarshitPratapSingh/Bank-Churn-Data-Analysis/master/dataset/churn.csv"
-    return pd.read_csv(url)
+    path = "dataset/churn.csv"
+    return pd.read_csv(path)
 
 df = get_data()
 
