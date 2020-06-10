@@ -545,3 +545,35 @@ Final Scores of all the Models.
 >6. SGD (Stochastic Gradient Descent) - This was the most interesting and flexible algoritm it also performed well and it achieved 3rd 
 >most accurate model consideration place with some Hyperparameters tuning.
 ---
+
+
+## Saving our models
+
+Joblib is the replacement of pickle as it is more efficent on objects that carry large numpy arrays. These functions also accept file-like object instead of filenames.
+
+```python
+import joblib
+```
+***
+
+### Model Saving
+
+1. We will have three variables in which first will store our postfix for the model.
+
+2. These two will be type of list and will store all the models and 3rd will store the prefixes for our models.
+
+#### *We will loop through all the prefixes and and dump the models one by one.*
+***
+```python
+model_post_fix = "_model.pkl"
+models=[DT_Classify, NB_Classifier, KNN_Classifier, SVM_Classifier, LR_Classifier, SGD_clf]
+model_names = ["DT","NB","KNN", "SVM", "LR", "SGD"]
+
+# saving our models with pkl extension
+i=0
+for mod_n in model_names:
+    joblib.dump(models[i], mod_n+ model_post_fix)
+    i +=1
+```
+---
+
