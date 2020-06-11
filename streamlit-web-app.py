@@ -52,7 +52,7 @@ train[features] = sc.fit_transform(train[features])
 st.title("Bank Churn Project")
 
 model_selection_name = st.selectbox("Select model you want to use", list(model_set.keys()))
-st.write(model_set.get(model_selection_name)," is the model through which we will predict")
+st.write(model_selection_name," is the model through which we will predict")
 model = joblib.load(model_path+model_set.get(model_selection_name)+"_model.pkl")
 
 st.header("Enter the Values")
